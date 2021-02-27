@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
       height: isCurrentPage ? 10.0 : 6.0,
       width: isCurrentPage ? 10.0 : 6.0,
       decoration: BoxDecoration(
-        color: isCurrentPage ? Colors.grey : Colors.grey[300],
+        color: isCurrentPage ? Colors.black : Colors.black12,
         borderRadius: BorderRadius.circular(12),
       ),
     );
@@ -41,8 +41,9 @@ class _HomeState extends State<Home> {
           gradient: LinearGradient(
               colors: [const Color(0xff3C8CE7), const Color(0xff00EAFF)])),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey,
         body: Container(
+          color: Colors.grey,
           height: MediaQuery.of(context).size.height - 100,
           child: PageView(
             controller: controller,
@@ -72,8 +73,10 @@ class _HomeState extends State<Home> {
         ),
         bottomSheet: slideIndex != 2
             ? Container(
-                margin: EdgeInsets.symmetric(vertical: 16),
+                color: Colors.grey,
+                // margin: EdgeInsets.symmetric(vertical: 16),
                 child: Row(
+                  
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
@@ -147,6 +150,7 @@ class SlideTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.grey,
       padding: EdgeInsets.symmetric(horizontal: 30),
       alignment: Alignment.center,
       child: Column(
