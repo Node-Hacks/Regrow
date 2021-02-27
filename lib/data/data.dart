@@ -61,14 +61,4 @@ List<SliderModel> getSlides() {
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
-
-  //4
-  sliderModel.setDesc("\nKnow Regrow better.\n");
-  sliderModel.setTitle("Logos");
-  sliderModel.setImageAssetPath("assets/illustration3.png");
-  slides.add(sliderModel);
-
-  sliderModel = new SliderModel();
-
-  return slides;
 }
