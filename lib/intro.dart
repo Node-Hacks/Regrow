@@ -1,3 +1,4 @@
+//Hello There
 import 'dart:io';
 import './data/data.dart';
 import './data/main.dart';
@@ -120,7 +121,7 @@ class _HomeState extends State<Home> {
             : InkWell(
                 onTap: () {
                   print("Get Started Now");
-                  Navigator.pushNamed(context, 'homepage');
+                  Navigator.pushNamed(context, 'location');
                 },
                 child: Container(
                   height: Platform.isIOS ? 70 : 60,

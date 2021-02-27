@@ -1,4 +1,5 @@
 import 'package:regrow/intro.dart';
+import 'package:regrow/locationScreen.dart';
 import 'package:regrow/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           'splashscreen': (context) => SplashScreen(),
           'homepage': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
           'intro': (context) => Home(),
+          'location': (context) => LocationScreen(),
         });
   }
 }
