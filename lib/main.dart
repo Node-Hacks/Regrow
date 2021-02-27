@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           'homepage': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
           'intro': (context) => Home(),
           'location': (context) => LocationScreen(),
-          'map': (context) => FullScreenMap(),
+          'map': (context) => MapsDemo(),
         });
   }
 }
