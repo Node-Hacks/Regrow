@@ -38,26 +38,33 @@ List<SliderModel> getSlides() {
 
   //1
   sliderModel.setDesc(
-      "Evolve is a beautifully simple way to to visualize your breathing \n Use Evolve for daily relaxation,mediation or breath training. \n Thank you for downloading Evolve and taking the first step to control+visualize your breathing");
-  sliderModel.setTitle("Tutorial,");
-  sliderModel.setImageAssetPath("assets/orange.png");
+      "\nIn this everchanging world \n We are feeling less and less secure.\n");
+  sliderModel.setTitle("Dangers EveryWhere!");
+  sliderModel.setImageAssetPath('assets/seed.png');
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
 
   //2
   sliderModel.setDesc(
-      "This area is for your breath cycle settings. \n\n Breathe In | Hold | Breathe Out | Hold \n\n The number values represent seconds and breath holds are optional");
-  sliderModel.setTitle("Breath Cycles");
-  sliderModel.setImageAssetPath("assets/illustration2.jpg");
+      "\nBy locating DANGERS and SAFE ZONES Regrow makes you more secure than ever.\n");
+  sliderModel.setTitle("Feeling Secure!");
+  sliderModel.setImageAssetPath("assets/seed(1).png");
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
 
   //3
-  sliderModel.setDesc(
-      "Once you select your settings,press start and your session begins immediately \n Return to the menu anytime by pressing STOP.  \n");
-  sliderModel.setTitle("Enjoy !!");
+  sliderModel.setDesc("\nLet's come together and REGROW the new world.\n");
+  sliderModel.setTitle("Enjoy!!");
+  sliderModel.setImageAssetPath("assets/tree.png");
+  slides.add(sliderModel);
+
+  sliderModel = new SliderModel();
+
+  //4
+  sliderModel.setDesc("\nKnow Regrow better.\n");
+  sliderModel.setTitle("Logos");
   sliderModel.setImageAssetPath("assets/illustration3.png");
   slides.add(sliderModel);
 

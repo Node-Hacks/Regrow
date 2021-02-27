@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("/assets/SplashScreenBackground.png"),
+                image: AssetImage('./assets/SplashScreenBackground(1).jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -49,23 +49,31 @@ class _SplashScreenState extends State<SplashScreen> {
                       Padding(
                         padding: EdgeInsets.all(10),
                       ),
-                      Text.rich(TextSpan(
-                          text: "Re",
-                          style: TextStyle(
-                            color: Color(0xff32522c),
-                            fontSize: 24.0,
-                            fontFamily: 'ag',
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: "Grow",
-                              style: TextStyle(
-                                color: Colors.brown,
-                                fontSize: 24.0,
-                                fontFamily: 'ag',
-                              ),
-                            )
-                          ])),
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 30,
+                          )),
+                        child: Text.rich(TextSpan(
+                            text: "Re",
+                            style: TextStyle(
+                              color: Color(0xff32522c),
+                              fontSize: 24.0,
+                              fontFamily: 'ag',
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: "Grow",
+                                style: TextStyle(
+                                  color: Colors.brown,
+                                  fontSize: 24.0,
+                                  fontFamily: 'ag',
+                                ),
+                              )
+                            ])),
+                      ),
                     ],
                   ),
                 ),
@@ -85,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     Text(
                       " Simple Resource Locator ",
-                      style: TextStyle(fontSize: 18.0, color: Colors.white),
+                      style: TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
