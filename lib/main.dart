@@ -1,3 +1,4 @@
+import 'package:regrow/fullscreenmap.dart';
 import 'package:regrow/intro.dart';
 import 'package:regrow/map.dart';
 import 'package:regrow/locationScreen.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           'homepage': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
           'intro': (context) => Home(),
           'location': (context) => LocationScreen(),
-          'map': (context) => MapsDemo(),
+          'map': (context) => FullScreenMap(),
         });
   }
 }
