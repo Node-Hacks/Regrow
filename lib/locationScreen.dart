@@ -29,7 +29,7 @@ class _LocationScreenState extends State<LocationScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Icon(
               Icons.location_on,
               size: 46.0,
@@ -72,7 +72,18 @@ class _LocationScreenState extends State<LocationScreen> {
                           fontFamily: 'ag',
                         ),
                       )
-                    ])))
+                    ]))),
+            RaisedButton(
+              //     disabledColor: Colors.red,
+              // disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(20),
+              textColor: Colors.white,
+              color: Colors.green,
+              onPressed: () {
+                Navigator.pushNamed(context, 'map');
+              },
+              child: Text('Enabled Button'),
+            ),
           ],
         ),
       ),

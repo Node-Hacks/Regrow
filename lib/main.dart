@@ -1,4 +1,5 @@
 import 'package:regrow/intro.dart';
+import 'package:regrow/map.dart';
 import 'package:regrow/locationScreen.dart';
 import 'package:regrow/splashscreen.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           'homepage': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
           'intro': (context) => Home(),
           'location': (context) => LocationScreen(),
+          'map': (context) => MapsDemo(),
         });
   }
 }
@@ -513,6 +515,17 @@ class _MyHomePageState extends State<MyHomePage> {
             // int _currentValuehold1 = 0;
             // int _currentValueout = 4;
             // int _currentValuehold2 = 0;
+            RaisedButton(
+              //     disabledColor: Colors.red,
+              // disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(20),
+              textColor: Colors.white,
+              color: Colors.green,
+              onPressed: () {
+                Navigator.pushNamed(context, 'map');
+              },
+              child: Text('Enabled Button'),
+            ),
             FlatButton(
               height: 50,
               onPressed: () {

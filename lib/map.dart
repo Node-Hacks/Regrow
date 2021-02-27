@@ -86,7 +86,3 @@ class MapsDemo extends StatelessWidget {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(home: MapsDemo()));
-}
