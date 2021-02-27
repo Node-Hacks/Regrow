@@ -43,36 +43,45 @@ class _SplashScreenState extends State<SplashScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 70.0,
-                          child: Image.asset('assets/leaf.png')),
+                        backgroundColor: Colors.white,
+                        radius: 70.0,
+                        child: Container(
+                            height: 60,
+                            width: 60,
+                            child: Image.asset('assets/ICON.png')),
+                      ),
                       Padding(
                         padding: EdgeInsets.all(10),
                       ),
-                      DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 30,
-                          )),
-                        child: Text.rich(TextSpan(
-                            text: "Re",
-                            style: TextStyle(
-                              color: Color(0xff32522c),
-                              fontSize: 24.0,
-                              fontFamily: 'ag',
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: "Grow",
-                                style: TextStyle(
-                                  color: Colors.brown,
-                                  fontSize: 24.0,
-                                  fontFamily: 'ag',
-                                ),
-                              )
-                            ])),
+                      Container(
+                        height: 70,
+                        width: 120,
+                        padding: EdgeInsets.all(5),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 40,
+                              )),
+                          child: Text.rich(TextSpan(
+                              text: "Re",
+                              style: TextStyle(
+                                color: Colors.teal[200], //Color(0xff32522c),
+                                fontSize: 24.0,
+                                fontFamily: 'ag',
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "Grow",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24.0,
+                                    fontFamily: 'ag',
+                                  ),
+                                )
+                              ])),
+                        ),
                       ),
                     ],
                   ),
@@ -93,7 +102,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     Text(
                       " Simple Resource Locator ",
-                      style: TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

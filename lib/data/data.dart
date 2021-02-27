@@ -61,4 +61,5 @@ List<SliderModel> getSlides() {
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
+  return slides;
 }

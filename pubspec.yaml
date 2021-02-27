@@ -34,7 +34,9 @@ dependencies:
   cupertino_icons: ^1.0.0
   mapbox_gl: ^0.10.0
   flutter_map:
-
+  firebase_core: ^0.5.0+1
+  firebase_database: ^4.1.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

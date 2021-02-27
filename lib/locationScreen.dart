@@ -31,40 +31,45 @@ class _LocationScreenState extends State<LocationScreen> {
           alignment: Alignment.topCenter,
           child: Row(
             children: <Widget>[
-              FloatingActionButton(
-                backgroundColor: Colors.white,
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  underline: Container(),
-                  icon: Icon(Icons.arrow_downward),
-                  iconSize: 20.0, // can be changed, default: 24.0
-                  iconEnabledColor: Colors.red,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
-                  },
-                  items: <String>['danger', 'food', 'home', 'rock']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Container(
-                        width: 200,
-                        child: Row(
-                          children: <Widget>[
-                            Image(
-                              image: AssetImage('./assets/' + value + '.png'),
-                              width: 50,
-                              height: 50,
-                            ),
-                            Text(value)
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
+              //               floatingActionButton: FloatingActionButton(
+              //   onPressed: _incrementCounter,
+              //   tooltip: 'Increment',
+              //   child: Icon(Icons.add),
+              // ), // This
+              //   floatingActionButton: FloatingActionButton(
+              //   backgroundColor: Colors.white,
+              //   child: DropdownButton<String>(
+              //     value: dropdownValue,
+              //     underline: Container(),
+              //     icon: Icon(Icons.arrow_downward),
+              //     iconSize: 20.0, // can be changed, default: 24.0
+              //     iconEnabledColor: Colors.red,
+              //     onChanged: (String newValue) {
+              //       setState(() {
+              //         dropdownValue = newValue;
+              //       });
+              //     },
+              //     items: <String>['danger', 'food', 'home', 'rock']
+              //         .map<DropdownMenuItem<String>>((String value) {
+              //       return DropdownMenuItem<String>(
+              //         value: value,
+              //         child: Container(
+              //           width: 200,
+              //           child: Row(
+              //             children: <Widget>[
+              //               Image(
+              //                 image: AssetImage('./assets/' + value + '.png'),
+              //                 width: 50,
+              //                 height: 50,
+              //               ),
+              //               Text(value)
+              //             ],
+              //           ),
+              //         ),
+              //       );
+              //     }).toList(),
+              //   ),
+              // ),
               FlatButton(
                 //     disabledColor: Colors.red,
 

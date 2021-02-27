@@ -12,9 +12,13 @@ import 'package:wave/wave.dart';
 import 'package:wave/config.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'dart:math' as math;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 math.Random rnd = new math.Random();
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MyApp());

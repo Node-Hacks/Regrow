@@ -76,7 +76,6 @@ class _HomeState extends State<Home> {
                 color: Colors.grey,
                 // margin: EdgeInsets.symmetric(vertical: 16),
                 child: Row(
-                  
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
