@@ -56,19 +56,9 @@ List<SliderModel> getSlides() {
 
   //3
   sliderModel.setDesc("\nLet's come together and REGROW the new world.\n");
-  sliderModel.setTitle("Enjoy!!");
+  sliderModel.setTitle("Enjoy!!This is a interesting program");
   sliderModel.setImageAssetPath("assets/tree.png");
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
-
-  //4
-  sliderModel.setDesc("\nKnow Regrow better.\n");
-  sliderModel.setTitle("Logos");
-  sliderModel.setImageAssetPath("assets/illustration3.png");
-  slides.add(sliderModel);
-
-  sliderModel = new SliderModel();
-
-  return slides;
 }
