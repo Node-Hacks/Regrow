@@ -137,7 +137,7 @@ class PlaceSymbolBody extends StatefulWidget {
 class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   PlaceSymbolBodyState();
 
-  static final LatLng center = const LatLng(30.86711, 76.7794);
+  static final LatLng center = const LatLng(30.7333, 76.7794);
 
   MapboxMapController controller;
   int _symbolCount = 0;
@@ -413,102 +413,39 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                     Column(
                       children: <Widget>[
                         FlatButton(
-                          child: const Text('add'),
+                          child: const Text('Add'),
                           onPressed: () =>
                               (_symbolCount == 12) ? null : _add("airport-15"),
                         ),
                         FlatButton(
-                          child: const Text('add all'),
+                          child: const Text('Add all'),
                           onPressed: () => (_symbolCount == 12)
                               ? null
                               : _addAll("airport-15"),
                         ),
                         FlatButton(
-                          child: const Text('add (custom icon)'),
-                          onPressed: () => (_symbolCount == 12)
-                              ? null
-                              : _add("assets/symbols/custom-icon.png"),
-                        ),
-                        FlatButton(
-                          child: const Text('remove'),
+                          child: const Text('Remove'),
                           onPressed: (_selectedSymbol == null) ? null : _remove,
                         ),
                         FlatButton(
-                          child: Text(
-                              '${_iconAllowOverlap ? 'disable' : 'enable'} icon overlap'),
-                          onPressed: _changeIconOverlap,
-                        ),
-                        FlatButton(
-                          child: const Text('remove all'),
+                          child: const Text('Remove all'),
                           onPressed: (_symbolCount == 0) ? null : _removeAll,
                         ),
-                        FlatButton(
-                          child: const Text('add (asset image)'),
-                          onPressed: () => (_symbolCount == 12)
-                              ? null
-                              : _add(
-                                  "assetImage"), //assetImage added to the style in _onStyleLoaded
-                        ),
-                        FlatButton(
-                          child: const Text('add (network image)'),
-                          onPressed: () => (_symbolCount == 12)
-                              ? null
-                              : _add(
-                                  "networkImage"), //networkImage added to the style in _onStyleLoaded
-                        ),
-                        FlatButton(
-                          child: const Text('add (custom font)'),
-                          onPressed: () =>
-                              (_symbolCount == 12) ? null : _add("customFont"),
-                        )
                       ],
                     ),
                     Column(
                       children: <Widget>[
                         FlatButton(
-                          child: const Text('change alpha'),
-                          onPressed:
-                              (_selectedSymbol == null) ? null : _changeAlpha,
-                        ),
-                        FlatButton(
-                          child: const Text('change icon offset'),
-                          onPressed: (_selectedSymbol == null)
-                              ? null
-                              : _changeIconOffset,
-                        ),
-                        FlatButton(
-                          child: const Text('change icon anchor'),
-                          onPressed: (_selectedSymbol == null)
-                              ? null
-                              : _changeIconAnchor,
-                        ),
-                        FlatButton(
-                          child: const Text('toggle draggable'),
+                          child: const Text('Toggle draggable'),
                           onPressed: (_selectedSymbol == null)
                               ? null
                               : _toggleDraggable,
                         ),
                         FlatButton(
-                          child: const Text('change position'),
+                          child: const Text('Change position'),
                           onPressed: (_selectedSymbol == null)
                               ? null
                               : _changePosition,
-                        ),
-                        FlatButton(
-                          child: const Text('change rotation'),
-                          onPressed: (_selectedSymbol == null)
-                              ? null
-                              : _changeRotation,
-                        ),
-                        FlatButton(
-                          child: const Text('toggle visible'),
-                          onPressed:
-                              (_selectedSymbol == null) ? null : _toggleVisible,
-                        ),
-                        FlatButton(
-                          child: const Text('change zIndex'),
-                          onPressed:
-                              (_selectedSymbol == null) ? null : _changeZIndex,
                         ),
                         FlatButton(
                           child: const Text('get current LatLng'),
