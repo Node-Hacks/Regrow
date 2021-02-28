@@ -23,6 +23,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'dart:math' as math;
 import 'main.dart';
 
+List<Label> downloadall = [];
 math.Random rnd = new math.Random();
 
 abstract class ExamplePage extends StatelessWidget {
@@ -321,6 +322,34 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   void addall() {}
   Future<void> _addAll(String iconImage) async {
     List<int> symbolsToAddNumbers = Iterable<int>.generate(12).toList();
+    print("Test Pass-1");
+    print(downloadall);
+    print(downloadall.length);
+    for (int i = 1; i < downloadall.length; i++) {
+      LatLng geometry = LatLng(
+        downloadall[i].latitude,
+        downloadall[i].longitude,
+      );
+      controller.addSymbol(iconImage == 'customFont'
+          ? SymbolOptions(
+              geometry: geometry,
+              iconImage: downloadall[i].label,
+              fontNames: ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
+              textField: downloadall[i].label,
+              textSize: 12.5,
+              textOffset: Offset(0, 0.8),
+              textAnchor: 'top',
+              textColor: '#000000',
+              textHaloBlur: 1,
+              textHaloColor: '#ffffff',
+              textHaloWidth: 0.8,
+            )
+          : SymbolOptions(
+              geometry: geometry,
+              iconImage: iconImage,
+            ));
+    }
+    print("Test Pass-2");
     controller.symbols.forEach(
         (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
 
@@ -369,28 +398,6 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     );
   }
 
-  void _changeIconOffset() {
-    Offset currentAnchor = _selectedSymbol.options.iconOffset;
-    if (currentAnchor == null) {
-      // default value
-      currentAnchor = Offset(0.0, 0.0);
-    }
-    final Offset newAnchor = Offset(1.0 - currentAnchor.dy, currentAnchor.dx);
-    _updateSelectedSymbol(SymbolOptions(iconOffset: newAnchor));
-  }
-
-  Future<void> _changeIconAnchor() async {
-    String current = _selectedSymbol.options.iconAnchor;
-    if (current == null || current == 'center') {
-      current = 'bottom';
-    } else {
-      current = 'center';
-    }
-    _updateSelectedSymbol(
-      SymbolOptions(iconAnchor: current),
-    );
-  }
-
   Future<void> _toggleDraggable() async {
     bool draggable = _selectedSymbol.options.draggable;
     if (draggable == null) {
@@ -400,29 +407,6 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
     _updateSelectedSymbol(
       SymbolOptions(draggable: !draggable),
-    );
-  }
-
-  Future<void> _changeAlpha() async {
-    double current = _selectedSymbol.options.iconOpacity;
-    if (current == null) {
-      // default value
-      current = 1.0;
-    }
-
-    _updateSelectedSymbol(
-      SymbolOptions(iconOpacity: current < 0.1 ? 1.0 : current * 0.75),
-    );
-  }
-
-  Future<void> _changeRotation() async {
-    double current = _selectedSymbol.options.iconRotate;
-    if (current == null) {
-      // default value
-      current = 0;
-    }
-    _updateSelectedSymbol(
-      SymbolOptions(iconRotate: current == 330.0 ? 0.0 : current + 30.0),
     );
   }
 
@@ -438,17 +422,6 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     );
   }
 
-  Future<void> _changeZIndex() async {
-    int current = _selectedSymbol.options.zIndex;
-    if (current == null) {
-      // default value
-      current = 0;
-    }
-    _updateSelectedSymbol(
-      SymbolOptions(zIndex: current == 12 ? 0 : current + 1),
-    );
-  }
-
   void _getLatLng() async {
     LatLng latLng = await controller.getSymbolLatLng(_selectedSymbol);
     Scaffold.of(context).showSnackBar(
@@ -458,17 +431,11 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     );
   }
 
-  Future<void> _changeIconOverlap() async {
-    setState(() {
-      _iconAllowOverlap = !_iconAllowOverlap;
-    });
-    controller.setSymbolIconAllowOverlap(_iconAllowOverlap);
-  }
-
   void download() {
     print("Test Pass-1");
     getAllLabels().then((label) {
       print(labels[1].label);
+      downloadall = labels;
     });
     print("Test Download");
   }
