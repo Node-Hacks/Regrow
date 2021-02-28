@@ -1,9 +1,12 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:regrow/label.dart';
+
+import 'database.dart';
 // Copyright 2018 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -17,8 +20,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mapbox_gl/mapbox_gl.dart';
-
+import 'dart:math' as math;
 import 'main.dart';
+
+math.Random rnd = new math.Random();
 
 abstract class ExamplePage extends StatelessWidget {
   const ExamplePage(this.leading, this.title);
@@ -153,9 +158,15 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   void _savedata(todo data) {
     var json = jsonCodec.encode(data);
     print("json=$json");
-    //var httpClient=creat
+    //var httpClient = createHttpClient();
+    //httpClient.post();
     return;
   }
+
+  // void placeInAdd(args) {
+  //   var label = new Label(0.0, 0.0, "airport");
+  //   label.setId(saveLabel(label));
+  // }
 
   Future<void> _getLocation() async {
     setState(() {
@@ -229,16 +240,27 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
   void add() {
     String iconImage = 'customFont';
+    int symbolCount = rnd.nextInt(7);
+    var data = [
+      "airport",
+      "firestation",
+      "lodging-15",
+      "danger-15",
+      "cafe-15",
+      "industry-15",
+      "beer-15",
+    ];
     LatLng geometry = LatLng(
-      center.latitude,
-      center.longitude,
+      center.latitude + sin(symbolCount * pi / 6.0) / 20.0,
+      center.longitude + sin(symbolCount * pi / 6.0) / 20.0,
     );
+    String label1 = data[rnd.nextInt(7)];
     controller.addSymbol(iconImage == 'customFont'
         ? SymbolOptions(
             geometry: geometry,
-            iconImage: 'airport-15',
+            iconImage: label1,
             fontNames: ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
-            textField: 'Airport',
+            textField: label1,
             textSize: 12.5,
             textOffset: Offset(0, 0.8),
             textAnchor: 'top',
@@ -251,6 +273,10 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
             geometry: geometry,
             iconImage: iconImage,
           ));
+    var label =
+        new Label(geometry.latitude, geometry.longitude, data[rnd.nextInt(7)]);
+    label.setId(saveLabel(label));
+    print("TestPass 1");
   }
 
   void _add(String iconImage) {
@@ -439,29 +465,47 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     controller.setSymbolIconAllowOverlap(_iconAllowOverlap);
   }
 
+  void download() {
+    print("Test Pass-1");
+    getAllLabels().then((label) {
+      print(labels[1].label);
+    });
+    print("Test Download");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Center(
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: SizedBox(
-              width: double.infinity,
-              height: 500.0,
-              child: MapboxMap(
-                accessToken: MapsDemo.ACCESS_TOKEN,
-                onMapCreated: _onMapCreated,
-                onStyleLoadedCallback: _onStyleLoaded,
-                initialCameraPosition: const CameraPosition(
-                  target: LatLng(30.7333, 76.7794),
-                  //30.7333° N, 76.7794
-                  zoom: 11.0,
-                ),
+        Container(
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 10),
+          child: SizedBox(
+            width: double.infinity,
+            height: 400.0,
+            child: MapboxMap(
+              accessToken: MapsDemo.ACCESS_TOKEN,
+              onMapCreated: _onMapCreated,
+              onStyleLoadedCallback: _onStyleLoaded,
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(30.7333, 76.7794),
+                //30.7333° N, 76.7794
+                zoom: 11.0,
               ),
             ),
+          ),
+        ),
+        Container(
+          height: 50,
+          width: 400,
+          padding: EdgeInsets.all(10),
+          child: Text(
+            '    LATITUDE:' +
+                (_error ?? '${latitudedata ?? "unknown"}') +
+                '    LONGITUDE:' +
+                (_error ?? '${longitudedata ?? "unknown"}'),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ),
         Expanded(
@@ -473,64 +517,92 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-                        FlatButton(
-                          child: const Text('Add'),
-                          onPressed: () =>
-                              (_symbolCount == 12) ? null : _add("airport-15"),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                            child: const Text('Add'),
+                            onPressed: () =>
+                                (_symbolCount == 12) ? null : add(),
+                          ),
                         ),
-                        FlatButton(
-                          child: const Text('Add all'),
-                          onPressed: () => (_symbolCount == 12)
-                              ? null
-                              : _addAll("airport-15"),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                            child: const Text('Add all'),
+                            onPressed: () => (_symbolCount == 12)
+                                ? null
+                                : _addAll("airport-15"),
+                          ),
                         ),
-                        FlatButton(
-                          child: const Text('Remove'),
-                          onPressed: (_selectedSymbol == null) ? null : _remove,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                            child: const Text('Remove'),
+                            onPressed:
+                                (_selectedSymbol == null) ? null : _remove,
+                          ),
                         ),
-                        FlatButton(
-                          child: const Text('Remove all'),
-                          onPressed: (_symbolCount == 0) ? null : _removeAll,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                            child: const Text('Remove all'),
+                            onPressed: (_symbolCount == 0) ? null : _removeAll,
+                          ),
                         ),
                       ],
                     ),
                     Column(
                       children: <Widget>[
-                        FlatButton(
-                          child: const Text('Toggle draggable'),
-                          onPressed: (_selectedSymbol == null)
-                              ? null
-                              : _toggleDraggable,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                              child: const Text('Download'),
+                              onPressed: () {
+                                download();
+                              }),
                         ),
-                        FlatButton(
-                          child: const Text('Change position'),
-                          onPressed: (_selectedSymbol == null)
-                              ? null
-                              : _changePosition,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                            child: const Text('Toggle draggable'),
+                            onPressed: (_selectedSymbol == null)
+                                ? null
+                                : _toggleDraggable,
+                          ),
                         ),
-                        FlatButton(
-                          child: const Text('LatLng'),
-                          onPressed:
-                              (_selectedSymbol == null) ? null : _getLatLng,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                            child: const Text('Change position'),
+                            onPressed: (_selectedSymbol == null)
+                                ? null
+                                : _changePosition,
+                          ),
                         ),
-                        Text(
-                          'Lat:' +
-                              (_error ?? '${latitudedata ?? "unknown"}') +
-                              'Long:' +
-                              (_error ?? '${longitudedata ?? "unknown"}'),
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            RaisedButton(
-                              child: const Text('Get'),
-                              onPressed: _getLocation,
-                            )
-                          ],
-                        ),
-                        FlatButton(
-                          child: const Text('Add'),
-                          onPressed: () => (_symbolCount == 12) ? null : add(),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          height: 60,
+                          width: 150,
+                          child: OutlinedButton(
+                              child: const Text('LatLng'),
+                              onPressed: () {
+                                (_selectedSymbol == null) ? null : _getLatLng();
+                                _getLocation();
+                              }),
                         ),
                       ],
                     ),
