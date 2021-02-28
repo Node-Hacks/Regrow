@@ -33,58 +33,6 @@ abstract class ExamplePage extends StatelessWidget {
   final String title;
 }
 
-class FullMapPage extends ExamplePage {
-  FullMapPage() : super(const Icon(Icons.map), 'Full screen map');
-
-  @override
-  Widget build(BuildContext context) {
-    return const FullMap();
-  }
-}
-
-class FullMap extends StatefulWidget {
-  const FullMap();
-
-  @override
-  State createState() => FullMapState();
-}
-
-class FullMapState extends State<FullMap> {
-  MapboxMapController mapController;
-
-  void _onMapCreated(MapboxMapController controller) {
-    mapController = controller;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-              height: 600,
-              width: double.infinity,
-              padding: EdgeInsets.all(10),
-              child: SizedBox(
-                height: 600,
-                width: double.infinity,
-                child: MapboxMap(
-                  accessToken: MapsDemo.ACCESS_TOKEN,
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition:
-                      const CameraPosition(target: LatLng(0.0, 0.0)),
-                  onStyleLoadedCallback: onStyleLoadedCallback,
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-
-  void onStyleLoadedCallback() {}
-}
-
 final List<ExamplePage> _allPages = <ExamplePage>[
   PlaceSymbolPage(),
 ];
@@ -241,9 +189,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
   void add() {
     String iconImage = 'customFont';
-    int symbolCount = rnd.nextInt(7);
+    int symbolCount1 = rnd.nextInt(10);
     var data = [
-      "airport",
+      "airport-15",
       "firestation",
       "lodging-15",
       "danger-15",
@@ -252,9 +200,10 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
       "beer-15",
     ];
     LatLng geometry = LatLng(
-      center.latitude + sin(symbolCount * pi / 6.0) / 20.0,
-      center.longitude + sin(symbolCount * pi / 6.0) / 20.0,
+      center.latitude + sin(_symbolCount + symbolCount1 * pi / 6.0) / 20.0,
+      center.longitude + cos(_symbolCount + symbolCount1 * pi / 6.0) / 20.0,
     );
+    symbolCount1 = 0;
     String label1 = data[rnd.nextInt(7)];
     controller.addSymbol(iconImage == 'customFont'
         ? SymbolOptions(
@@ -278,6 +227,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
         new Label(geometry.latitude, geometry.longitude, data[rnd.nextInt(7)]);
     label.setId(saveLabel(label));
     print("TestPass 1");
+    setState(() {
+      _symbolCount += 1;
+    });
   }
 
   void _add(String iconImage) {
@@ -325,15 +277,30 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     print("Test Pass-1");
     print(downloadall);
     print(downloadall.length);
+    var data = [
+      "airport",
+      "firestation",
+      "lodging-15",
+      "danger-15",
+      "cafe-15",
+      "industry-15",
+      "beer-15",
+    ];
+    LatLng geometry = LatLng(
+      center.latitude + sin(_symbolCount * pi / 6.0) / 20.0,
+      center.longitude + cos(_symbolCount * pi / 6.0) / 20.0,
+    );
+    String label1 = data[rnd.nextInt(7)];
     for (int i = 1; i < downloadall.length; i++) {
       LatLng geometry = LatLng(
         downloadall[i].latitude,
         downloadall[i].longitude,
       );
+      print(downloadall[i].label);
       controller.addSymbol(iconImage == 'customFont'
           ? SymbolOptions(
               geometry: geometry,
-              iconImage: downloadall[i].label,
+              iconImage: downloadall[i].label, //,
               fontNames: ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
               textField: downloadall[i].label,
               textSize: 12.5,
@@ -348,6 +315,7 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
               geometry: geometry,
               iconImage: iconImage,
             ));
+      setState(() {});
     }
     print("Test Pass-2");
     controller.symbols.forEach(
@@ -360,6 +328,10 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
       controller.addSymbols(symbolOptionsList,
           symbolsToAddNumbers.map((i) => {'count': i}).toList());
 
+      var label = new Label(
+          geometry.latitude, geometry.longitude, data[rnd.nextInt(7)]);
+      label.setId(saveLabel(label));
+      print("TestPass 1");
       setState(() {
         _symbolCount += symbolOptionsList.length;
       });
@@ -490,8 +462,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                           width: 150,
                           child: OutlinedButton(
                             child: const Text('Add'),
-                            onPressed: () =>
-                                (_symbolCount == 12) ? null : add(),
+                            onPressed: () {
+                              add();
+                            },
                           ),
                         ),
                         Container(
