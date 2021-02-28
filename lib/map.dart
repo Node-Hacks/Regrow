@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -143,10 +145,17 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   String _error;
   double latitudedata;
   double longitudedata;
+  int label;
   MapboxMapController controller;
   int _symbolCount = 0;
   Symbol _selectedSymbol;
   bool _iconAllowOverlap = false;
+  void _savedata(todo data) {
+    var json = jsonCodec.encode(data);
+    print("json=$json");
+    //var httpClient=creat
+    return;
+  }
 
   Future<void> _getLocation() async {
     setState(() {
@@ -158,6 +167,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
         _location = _locationResult;
         latitudedata = _location.latitude;
         longitudedata = _location.longitude;
+        label = 1;
+        _savedata(new todo(label, latitudedata, longitudedata));
       });
     } on PlatformException catch (err) {
       setState(() {
@@ -216,6 +227,32 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     controller.updateSymbol(_selectedSymbol, changes);
   }
 
+  void add() {
+    String iconImage = 'customFont';
+    LatLng geometry = LatLng(
+      center.latitude,
+      center.longitude,
+    );
+    controller.addSymbol(iconImage == 'customFont'
+        ? SymbolOptions(
+            geometry: geometry,
+            iconImage: 'airport-15',
+            fontNames: ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
+            textField: 'Airport',
+            textSize: 12.5,
+            textOffset: Offset(0, 0.8),
+            textAnchor: 'top',
+            textColor: '#000000',
+            textHaloBlur: 1,
+            textHaloColor: '#ffffff',
+            textHaloWidth: 0.8,
+          )
+        : SymbolOptions(
+            geometry: geometry,
+            iconImage: iconImage,
+          ));
+  }
+
   void _add(String iconImage) {
     List<int> availableNumbers = Iterable<int>.generate(12).toList();
     controller.symbols.forEach(
@@ -223,6 +260,7 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     if (availableNumbers.isNotEmpty) {
       controller.addSymbol(_getSymbolOptions(iconImage, availableNumbers.first),
           {'count': availableNumbers.first});
+
       setState(() {
         _symbolCount += 1;
       });
@@ -254,6 +292,7 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
           );
   }
 
+  void addall() {}
   Future<void> _addAll(String iconImage) async {
     List<int> symbolsToAddNumbers = Iterable<int>.generate(12).toList();
     controller.symbols.forEach(
@@ -488,7 +527,11 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                               onPressed: _getLocation,
                             )
                           ],
-                        )
+                        ),
+                        FlatButton(
+                          child: const Text('Add'),
+                          onPressed: () => (_symbolCount == 12) ? null : add(),
+                        ),
                       ],
                     ),
                   ],
@@ -499,5 +542,17 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
         ),
       ],
     );
+  }
+}
+
+const jsonCodec = const JsonCodec();
+
+class todo {
+  int label;
+  double lat;
+  double long;
+  todo(this.label, this.lat, this.long);
+  Map toJson() {
+    return {"label": label, "latitude": lat, "longitude": long};
   }
 }
