@@ -141,7 +141,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
   LocationData _location;
   String _error;
-
+  double latitudedata;
+  double longitudedata;
   MapboxMapController controller;
   int _symbolCount = 0;
   Symbol _selectedSymbol;
@@ -155,9 +156,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
       final LocationData _locationResult = await location.getLocation();
       setState(() {
         _location = _locationResult;
-        print(_location.latitude);
-        print(_location.longitude);
-        print(_location.altitude);
+        latitudedata = _location.latitude;
+        longitudedata = _location.longitude;
       });
     } on PlatformException catch (err) {
       setState(() {
@@ -470,12 +470,15 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                               : _changePosition,
                         ),
                         FlatButton(
-                          child: const Text('get current LatLng'),
+                          child: const Text('LatLng'),
                           onPressed:
                               (_selectedSymbol == null) ? null : _getLatLng,
                         ),
                         Text(
-                          'Lat:+ ${_location.latitude} Long: + ${_location.longitude}  ',
+                          'Lat:' +
+                              (_error ?? '${latitudedata ?? "unknown"}') +
+                              'Long:' +
+                              (_error ?? '${longitudedata ?? "unknown"}'),
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Row(
