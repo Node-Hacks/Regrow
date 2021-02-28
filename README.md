@@ -25,33 +25,19 @@ Let's get you started with this interesting project of ours:
 
 To run this project locally, follow the steps:
 
-Solves general chemical problems
-Ubuntu 20.04 focal fossa with python.3.8
-- Install Anaconda
-```
-wget -P /tmp https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
-bash /tmp/Anaconda3-2020.02-Linux-x86_64.sh
-source ~/.bashrc
-```
-
- Accept the conda init prompt and this should install conda
+- Install Flutter
  
-- Create a environment with 
-```
-conda create --name consciousapp
-conda activate consciousapp
-```
+ Follow the steps provided by the Flutter devs at https://flutter.dev/docs/get-started/install.
 
-- Install Django and some dependencies
-```
-pip install django
-https://github.com/Kashish-max/Conscious.git
-cd Conscious/
-pip3 install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
-```
+- Add mapbox to flutter
+ 
+ Follow the steps provided at https://github.com/mapbox/flutter-mapbox-gl.
+
+- Install Firebase and some dependencies
+ 
+ Follow the steps provided by google at https://firebase.google.com/docs/flutter/setup.
+
+
 References:
 ## Important Links:
 <li>1)[Flutter](https://flutter.dev/)</li>
