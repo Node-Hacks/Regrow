@@ -192,9 +192,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     int symbolCount1 = rnd.nextInt(10);
     var data = [
       "airport-15",
-      "firestation",
+      "firestation-15",
       "lodging-15",
-      "danger-15",
+      //"danger-15",
       "cafe-15",
       "industry-15",
       "beer-15",
@@ -272,7 +272,7 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   }
 
   void addall() {}
-  Future<void> _addAll(String iconImage) async {
+  Future<void> _addAll() async {
     List<int> symbolsToAddNumbers = Iterable<int>.generate(12).toList();
     print("Test Pass-1");
     print(downloadall);
@@ -290,19 +290,21 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
       center.latitude + sin(_symbolCount * pi / 6.0) / 20.0,
       center.longitude + cos(_symbolCount * pi / 6.0) / 20.0,
     );
+
+    String iconImage = 'customFont';
     String label1 = data[rnd.nextInt(7)];
-    for (int i = 1; i < downloadall.length; i++) {
+    for (int i = 0; i < downloadall.length + 1; i++) {
       LatLng geometry = LatLng(
         downloadall[i].latitude,
         downloadall[i].longitude,
       );
-      print(downloadall[i].label);
+      var label1 = downloadall[i].symbol;
       controller.addSymbol(iconImage == 'customFont'
           ? SymbolOptions(
               geometry: geometry,
-              iconImage: downloadall[i].label, //,
+              iconImage: label1, //,
               fontNames: ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
-              textField: downloadall[i].label,
+              textField: label1,
               textSize: 12.5,
               textOffset: Offset(0, 0.8),
               textAnchor: 'top',
@@ -317,25 +319,26 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
             ));
       setState(() {});
     }
-    print("Test Pass-2");
-    controller.symbols.forEach(
-        (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
+    downloadall.clear();
+    // print("Test Pass-2");
+    // controller.symbols.forEach(
+    //     (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
 
-    if (symbolsToAddNumbers.isNotEmpty) {
-      final List<SymbolOptions> symbolOptionsList = symbolsToAddNumbers
-          .map((i) => _getSymbolOptions(iconImage, i))
-          .toList();
-      controller.addSymbols(symbolOptionsList,
-          symbolsToAddNumbers.map((i) => {'count': i}).toList());
+    // if (symbolsToAddNumbers.isNotEmpty) {
+    //   final List<SymbolOptions> symbolOptionsList = symbolsToAddNumbers
+    //       .map((i) => _getSymbolOptions(iconImage, i))
+    //       .toList();
+    //   controller.addSymbols(symbolOptionsList,
+    //       symbolsToAddNumbers.map((i) => {'count': i}).toList());
 
-      var label = new Label(
-          geometry.latitude, geometry.longitude, data[rnd.nextInt(7)]);
-      label.setId(saveLabel(label));
-      print("TestPass 1");
-      setState(() {
-        _symbolCount += symbolOptionsList.length;
-      });
-    }
+    //   var label = new Label(
+    //       geometry.latitude, geometry.longitude, data[rnd.nextInt(7)]);
+    //   label.setId(saveLabel(label));
+    //   print("TestPass 1");
+    //   setState(() {
+    //     _symbolCount += symbolOptionsList.length;
+    //   });
+    // }
   }
 
   void _remove() {
@@ -406,7 +409,7 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   void download() {
     print("Test Pass-1");
     getAllLabels().then((label) {
-      print(labels[1].label);
+      print(labels[1].symbol);
       downloadall = labels;
     });
     print("Test Download");
@@ -473,9 +476,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                           width: 150,
                           child: OutlinedButton(
                             child: const Text('Add all'),
-                            onPressed: () => (_symbolCount == 12)
-                                ? null
-                                : _addAll("airport-15"),
+                            onPressed: () =>
+                                (_symbolCount == 12) ? null : _addAll(),
                           ),
                         ),
                         Container(

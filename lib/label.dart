@@ -3,16 +3,15 @@ import 'package:firebase_database/firebase_database.dart';
 class Label {
   var longitude;
   var latitude;
-  String label;
+  String symbol;
   DatabaseReference _id;
 
-  Label(this.latitude, this.longitude, this.label);
+  Label(this.latitude, this.longitude, this.symbol);
 
   void setId(DatabaseReference _id) {
     this._id = _id;
     print("TestPass 2");
     print(this._id);
-    print(label);
   }
 
   Map<String, dynamic> toJSON() {
@@ -22,7 +21,7 @@ class Label {
     return {
       'latitude': this.latitude,
       'longitude': this.longitude,
-      'label': this.label
+      'label': this.symbol
     };
   }
 
@@ -35,7 +34,7 @@ class Label {
 
     record.forEach((key, value) => {attributes[key] = value});
     Label label = new Label(
-        attributes['latitude'], attributes['longitude'], attributes['label']);
+        attributes['latitude'], attributes['longitude'], attributes['symbol']);
     return label;
   }
 }

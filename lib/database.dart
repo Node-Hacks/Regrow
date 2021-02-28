@@ -8,7 +8,7 @@ final dbRef = FirebaseDatabase.instance.reference();
 DatabaseReference saveLabel(Label label) {
   print("Test Pass 3");
   dbRef.child('labels/').push().set({
-    "label": label.label,
+    "symbol": label.symbol,
     "latitude": label.latitude,
     "longitude": label.longitude
   }).then((_) {
@@ -32,7 +32,7 @@ Future<List<Label>> getAllLabels() async {
       // print(values['label']);
       Label label;
       label =
-          new Label(values['latitude'], values['longitude'], values['label']);
+          new Label(values['latitude'], values['longitude'], values['symbol']);
       // print(label.label);
       // print(label.latitude);
       // print(label.longitude);
