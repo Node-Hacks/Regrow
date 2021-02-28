@@ -123,7 +123,7 @@ class _HomeState extends State<Home> {
             : InkWell(
                 onTap: () {
                   print("Get Started Now");
-                  Navigator.pushNamed(context, 'location');
+                  Navigator.pushNamed(context, 'map');
                 },
                 child: Container(
                   height: Platform.isIOS ? 70 : 60,
