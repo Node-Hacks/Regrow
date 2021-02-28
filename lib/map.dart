@@ -78,7 +78,6 @@ class FullMapState extends State<FullMap> {
 }
 
 final List<ExamplePage> _allPages = <ExamplePage>[
-  FullMapPage(),
   PlaceSymbolPage(),
 ];
 
@@ -138,11 +137,34 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
   PlaceSymbolBodyState();
 
   static final LatLng center = const LatLng(30.7333, 76.7794);
+  final Location location = Location();
+
+  LocationData _location;
+  String _error;
 
   MapboxMapController controller;
   int _symbolCount = 0;
   Symbol _selectedSymbol;
   bool _iconAllowOverlap = false;
+
+  Future<void> _getLocation() async {
+    setState(() {
+      _error = null;
+    });
+    try {
+      final LocationData _locationResult = await location.getLocation();
+      setState(() {
+        _location = _locationResult;
+        print(_location.latitude);
+        print(_location.longitude);
+        print(_location.altitude);
+      });
+    } on PlatformException catch (err) {
+      setState(() {
+        _error = err.code;
+      });
+    }
+  }
 
   void _onMapCreated(MapboxMapController controller) {
     this.controller = controller;
@@ -452,6 +474,18 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
                           onPressed:
                               (_selectedSymbol == null) ? null : _getLatLng,
                         ),
+                        Text(
+                          'Lat:+ ${_location.latitude} Long: + ${_location.longitude}  ',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            RaisedButton(
+                              child: const Text('Get'),
+                              onPressed: _getLocation,
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ],
