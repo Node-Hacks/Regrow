@@ -87,6 +87,23 @@ class _LocationScreenState extends State<LocationScreen> {
 
                 child: Text('Enabled Button'),
               ),
+              FlatButton(
+                //     disabledColor: Colors.red,
+
+                // disabledTextColor: Colors.black,
+
+                padding: const EdgeInsets.all(20),
+
+                textColor: Colors.white,
+
+                color: Colors.green,
+
+                onPressed: () {
+                  Navigator.pushNamed(context, 'bluetooth');
+                },
+
+                child: Text('Enabled Button2'),
+              ),
             ],
           ),
         ),

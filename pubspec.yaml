@@ -37,6 +37,7 @@ dependencies:
   firebase_core: ^0.5.0+1
   firebase_database: ^4.1.1
   http:
+  flutter_blue: ^0.7.3
   
 dev_dependencies:
   flutter_test:

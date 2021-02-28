@@ -1,3 +1,4 @@
+import 'package:regrow/bluetooth.dart';
 import 'package:regrow/fullscreenmap.dart';
 import 'package:regrow/intro.dart';
 import 'package:regrow/map.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           'intro': (context) => Home(),
           'location': (context) => LocationScreen(),
           'map': (context) => MapsDemo(),
+          'bluetooth': (context) => FlutterBlueApp(),
         });
   }
 }
